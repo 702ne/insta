@@ -48,7 +48,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("영민")),
         bottomNavigationBar: BottomNavigationBar(
           items: btmNavItems,
           showSelectedLabels: true,
