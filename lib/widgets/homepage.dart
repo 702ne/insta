@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'feed_screen.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
@@ -22,9 +24,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   final List<Widget> _screens = <Widget>[
-    Container(
-      color: Colors.amberAccent,
-    ),
+    const FeedScreen(),
     Container(
       color: Colors.blueAccent,
     ),
