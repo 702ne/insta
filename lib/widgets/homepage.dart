@@ -10,22 +10,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+
   final List<BottomNavigationBarItem> btmNavItems = [
+    const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+    const BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+    const BottomNavigationBarItem(icon: Icon(Icons.add), label: "Add"),
+    const BottomNavigationBarItem(icon: Icon(Icons.healing), label: "Healing"),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: "Home",
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.search),
-      label: "Search",
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.account_box),
-      label: "Account",
-    )
+        icon: Icon(Icons.account_box), label: "Account"),
   ];
 
-  int _selectedIndex = 0;
+  final List<Widget> _screens = <Widget>[
+    Container(
+      color: Colors.amberAccent,
+    ),
+    Container(
+      color: Colors.blueAccent,
+    ),
+    Container(
+      color: Colors.greenAccent,
+    ),
+    Container(
+      color: Colors.cyanAccent,
+    ),
+    Container(
+      color: Colors.deepPurpleAccent,
+    ),
+  ];
 
   void _onBtnItemClick(int index) {
     setState(() {
@@ -36,27 +48,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("영민")),
-      bottomNavigationBar: BottomNavigationBar(
-        items: btmNavItems,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        selectedItemColor: Colors.black87,
-        unselectedItemColor: Colors.grey.shade500,
-        currentIndex: _selectedIndex,
-        onTap: _onBtnItemClick,
-      ),
-      body: Container(
-        color: Colors.amber.shade50,
-        child: Column(
-          children: const [
-            Text("Young's note"),
-            Image(
-                image: NetworkImage(
-                    "https://docs.flutter.dev/assets/images/shared/brand/flutter/logo/flutter-lockup.png")),
-          ],
+        appBar: AppBar(title: const Text("영민")),
+        bottomNavigationBar: BottomNavigationBar(
+          items: btmNavItems,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          selectedItemColor: Colors.black87,
+          unselectedItemColor: Colors.grey.shade500,
+          currentIndex: _selectedIndex,
+          onTap: _onBtnItemClick,
         ),
-      ),
-    );
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: _screens,
+        ));
   }
 }
