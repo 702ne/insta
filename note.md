@@ -118,7 +118,7 @@ Update
 new project from github
 
 ```
-git clone git@github.com:702ne/dirst.git newwork
+git clone git@github.com:702ne/insta.git
 WORKING
 git add .
 git commit -m "new works"

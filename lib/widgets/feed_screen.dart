@@ -11,6 +11,17 @@ class FeedScreen extends StatelessWidget {
         "Instagram",
         style: TextStyle(fontFamily: "VeganStyle", color: Colors.black87),
       )),
+      body: ListView.builder(
+        itemBuilder: itemBuilder,
+        itemCount: 30,
+      ),
+    );
+  }
+
+  Widget? itemBuilder(BuildContext context, int index) {
+    return Container(
+      color: Colors.accents[index % Colors.accents.length],
+      height: 100,
     );
   }
 }
