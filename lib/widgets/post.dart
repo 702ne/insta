@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class Post extends StatelessWidget {
   final int index;
+
   const Post(
     this.index, {
     super.key,
@@ -13,8 +14,25 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return CachedNetworkImage(
-      imageUrl: "https://picsum.photos/id/$index/200/300",
+      imageUrl: "https://picsum.photos/id/$index/2000/3000",
+      placeholder: (BuildContext context, String url) {
+        return SizedBox(
+          width: size.width,
+          height: size.height,
+          child: const Center(
+            child: SizedBox(
+              width: 60,
+              height: 60,
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.black87,
+              ),
+            ),
+          ),
+        );
+      },
       imageBuilder: (BuildContext, ImageProvider imageProvider) {
         return AspectRatio(
           aspectRatio: 1,
