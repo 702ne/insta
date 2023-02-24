@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:insta/widgets/post.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
@@ -37,16 +38,11 @@ class FeedScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        itemBuilder: itemBuilder,
+        itemBuilder: (BuildContext context, int index) {
+          return Post(index);
+        },
         itemCount: 30,
       ),
-    );
-  }
-
-  Widget? itemBuilder(BuildContext context, int index) {
-    return Container(
-      color: Colors.accents[index % Colors.accents.length],
-      height: 100,
     );
   }
 }
