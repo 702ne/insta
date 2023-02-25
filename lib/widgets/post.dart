@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:insta/widgets/rounded_avatar.dart';
 
 import '../const/common_size.dart';
 import 'my_progress_Indicator.dart';
@@ -20,28 +21,47 @@ class Post extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Column(
-      children: [
-        _postHeader(),
-        _postImage(size),
+      children: [_postHeader(), _postImage(size), _postActions()],
+    );
+  }
+
+  Row _postActions() {
+    return Row(
+      children: const [
+        IconButton(
+          onPressed: null,
+          icon: ImageIcon(AssetImage('assets/images/bookmark.png')),
+          color: Colors.black87,
+        ),
+        IconButton(
+          onPressed: null,
+          icon: ImageIcon(AssetImage('assets/images/comment.png')),
+          color: Colors.black87,
+        ),
+        IconButton(
+          onPressed: null,
+          icon: ImageIcon(AssetImage('assets/images/direct_message.png')),
+          color: Colors.black87,
+        ),
+        Spacer(),
+        IconButton(
+          onPressed: null,
+          icon: ImageIcon(AssetImage('assets/images/heart_selected.png')),
+          color: Colors.black87,
+        ),
       ],
     );
   }
 
   Widget _postHeader() {
     return Row(
-      children: [
+      children: const [
         Padding(
-          padding: const EdgeInsets.all(common_xxx_gap),
-          child: ClipOval(
-            child: CachedNetworkImage(
-              imageUrl: 'https://picsum.photos/100',
-              width: avatar_size,
-              height: avatar_size,
-            ),
-          ),
+          padding: EdgeInsets.all(common_xxx_gap),
+          child: RoundedAvatar(),
         ),
-        const Expanded(child: Text("username")),
-        const IconButton(
+        Expanded(child: Text("username")),
+        IconButton(
             onPressed: null,
             icon: Icon(
               Icons.more_horiz,
