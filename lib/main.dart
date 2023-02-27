@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insta/const/material_white.dart';
 
-import 'widgets/homepage.dart';
+import 'homepage.dart';
 
 void main() {
   runApp(const MyApp());
