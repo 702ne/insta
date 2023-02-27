@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:insta/widgets/comment.dart';
 import 'package:insta/widgets/rounded_avatar.dart';
 
 import '../const/common_size.dart';
@@ -26,14 +27,31 @@ class Post extends StatelessWidget {
         _postHeader(),
         _postImage(size),
         _postActions(),
-        const Padding(
-          padding: EdgeInsets.only(left: common_gap),
-          child: Text(
-            '12000 likes',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        )
+        _postLikes(),
+        _postCaption()
       ],
+    );
+  }
+
+  Widget _postCaption() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: common_gap, vertical: common_xxx_gap),
+      child: Comment(
+        showImage: false,
+        username: "young",
+        text: "adgfadfaertwer",
+      ),
+    );
+  }
+
+  Padding _postLikes() {
+    return const Padding(
+      padding: EdgeInsets.only(left: common_gap),
+      child: Text(
+        '12000 likes',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
     );
   }
 

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import '../const/common_size.dart';
 
 class RoundedAvatar extends StatelessWidget {
+  final double size;
   const RoundedAvatar({
     super.key,
+    this.size = avatar_size,
   });
 
   @override
