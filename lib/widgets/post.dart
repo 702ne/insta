@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:insta/const/screen_size.dart';
 import 'package:insta/widgets/comment.dart';
 import 'package:insta/widgets/rounded_avatar.dart';
-
 import '../const/common_size.dart';
 import 'my_progress_Indicator.dart';
 
@@ -19,13 +19,11 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _postHeader(),
-        _postImage(size),
+        _postImage(screenSize!),
         _postActions(),
         _postLikes(),
         _postCaption()

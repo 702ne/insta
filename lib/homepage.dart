@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta/const/screen_size.dart';
 import 'package:insta/screens/profile_screen.dart';
 
 import 'screens/feed_screen.dart';
@@ -46,6 +47,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    screenSize ??= MediaQuery.of(context).size;
+
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           items: btmNavItems,

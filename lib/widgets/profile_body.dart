@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insta/const/common_size.dart';
+import 'package:insta/const/screen_size.dart';
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({
@@ -23,43 +24,58 @@ class _ProfileBodyState extends State<ProfileBody> {
               _username(),
               _userbio(),
               _editProfileBtn(),
-              Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(
-                    child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          leftSelected = true;
-                          print('grid btn');
-                        });
-                      },
-                      icon: ImageIcon(
-                        const AssetImage('assets/images/grid.png'),
-                        color: leftSelected ? Colors.black : Colors.black26,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          leftSelected = false;
-                          print('saved btn');
-                        });
-                      },
-                      icon: ImageIcon(
-                        const AssetImage('assets/images/saved.png'),
-                        color: leftSelected ? Colors.black26 : Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              _tabButtons(),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                alignment:
+                    leftSelected ? Alignment.centerLeft : Alignment.centerRight,
+                child: Container(
+                  height: 3,
+                  width: screenSize!.width / 2,
+                  color: Colors.black,
+                ),
+              )
             ]),
           )
         ],
       ),
+    );
+  }
+
+  Row _tabButtons() {
+    return Row(
+      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          child: IconButton(
+            onPressed: () {
+              setState(() {
+                leftSelected = true;
+                print('grid btn');
+              });
+            },
+            icon: ImageIcon(
+              const AssetImage('assets/images/grid.png'),
+              color: leftSelected ? Colors.black : Colors.black26,
+            ),
+          ),
+        ),
+        Expanded(
+          child: IconButton(
+            onPressed: () {
+              setState(() {
+                leftSelected = false;
+                print('saved btn');
+              });
+            },
+            icon: ImageIcon(
+              const AssetImage('assets/images/saved.png'),
+              color: leftSelected ? Colors.black26 : Colors.black,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
