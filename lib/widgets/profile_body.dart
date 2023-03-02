@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:insta/const/common_size.dart';
 import 'package:insta/const/screen_size.dart';
+
+enum SelectedTab { left, right }
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({
@@ -12,7 +15,7 @@ class ProfileBody extends StatefulWidget {
 }
 
 class _ProfileBodyState extends State<ProfileBody> {
-  bool leftSelected = true;
+  SelectedTab _selectedTab = SelectedTab.left;
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +28,39 @@ class _ProfileBodyState extends State<ProfileBody> {
               _userbio(),
               _editProfileBtn(),
               _tabButtons(),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                alignment:
-                    leftSelected ? Alignment.centerLeft : Alignment.centerRight,
-                child: Container(
-                  height: 3,
-                  width: screenSize!.width / 2,
-                  color: Colors.black,
-                ),
-              )
+              _selectedIndicator()
             ]),
+          ),
+          SliverToBoxAdapter(
+            child: GridView.count(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              childAspectRatio: 1,
+              children: List.generate(
+                  30,
+                  (index) => CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: "https://picsum.photos/id/$index/100/100",
+                      )),
+            ),
           )
         ],
+      ),
+    );
+  }
+
+  AnimatedContainer _selectedIndicator() {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      alignment: _selectedTab == SelectedTab.left
+          ? Alignment.centerLeft
+          : Alignment.centerRight,
+      child: Container(
+        height: 3,
+        width: screenSize!.width / 2,
+        color: Colors.black,
       ),
     );
   }
@@ -51,13 +73,15 @@ class _ProfileBodyState extends State<ProfileBody> {
           child: IconButton(
             onPressed: () {
               setState(() {
-                leftSelected = true;
+                _selectedTab = SelectedTab.left;
                 print('grid btn');
               });
             },
             icon: ImageIcon(
               const AssetImage('assets/images/grid.png'),
-              color: leftSelected ? Colors.black : Colors.black26,
+              color: _selectedTab == SelectedTab.left
+                  ? Colors.black
+                  : Colors.black26,
             ),
           ),
         ),
@@ -65,13 +89,15 @@ class _ProfileBodyState extends State<ProfileBody> {
           child: IconButton(
             onPressed: () {
               setState(() {
-                leftSelected = false;
+                _selectedTab = SelectedTab.right;
                 print('saved btn');
               });
             },
             icon: ImageIcon(
               const AssetImage('assets/images/saved.png'),
-              color: leftSelected ? Colors.black26 : Colors.black,
+              color: _selectedTab == SelectedTab.right
+                  ? Colors.black
+                  : Colors.black26,
             ),
           ),
         ),
