@@ -16,6 +16,7 @@ class ProfileBody extends StatefulWidget {
 
 class _ProfileBodyState extends State<ProfileBody> {
   SelectedTab _selectedTab = SelectedTab.left;
+  double _leftImagesPageMargin = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +32,46 @@ class _ProfileBodyState extends State<ProfileBody> {
               _selectedIndicator()
             ]),
           ),
-          SliverToBoxAdapter(
-            child: GridView.count(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              crossAxisCount: 3,
-              childAspectRatio: 1,
-              children: List.generate(
-                  30,
-                  (index) => CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: "https://picsum.photos/id/$index/100/100",
-                      )),
-            ),
-          )
+          _imagesPager()
         ],
       ),
+    );
+  }
+
+  SliverToBoxAdapter _imagesPager() {
+    return SliverToBoxAdapter(
+      child: Stack(
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            transform: Matrix4.translationValues(_leftImagesPageMargin, 0, 0),
+            curve: Curves.fastOutSlowIn,
+            child: imagesGrid(),
+          ),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            transform: Matrix4.translationValues(
+                _leftImagesPageMargin + screenSize!.width, 0, 0),
+            curve: Curves.fastOutSlowIn,
+            child: imagesGrid(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  GridView imagesGrid() {
+    return GridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: 3,
+      childAspectRatio: 1,
+      children: List.generate(
+          30,
+          (index) => CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: "https://picsum.photos/id/$index/100/100",
+              )),
     );
   }
 
@@ -74,6 +99,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             onPressed: () {
               setState(() {
                 _selectedTab = SelectedTab.left;
+                _leftImagesPageMargin = 0;
                 print('grid btn');
               });
             },
@@ -90,6 +116,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             onPressed: () {
               setState(() {
                 _selectedTab = SelectedTab.right;
+                _leftImagesPageMargin = -screenSize!.width;
                 print('saved btn');
               });
             },

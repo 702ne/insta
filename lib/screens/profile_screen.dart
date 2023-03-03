@@ -28,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         const Expanded(
             child: Text(
-          'The Youngs best app',
+          'The Young\'s best app',
           textAlign: TextAlign.center,
         )),
         IconButton(
