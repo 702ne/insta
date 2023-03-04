@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:insta/const/common_size.dart';
 import 'package:insta/const/screen_size.dart';
+import 'package:insta/widgets/rounded_avatar.dart';
 
 enum SelectedTab { left, right }
 
@@ -25,6 +26,35 @@ class _ProfileBodyState extends State<ProfileBody> {
         slivers: [
           SliverList(
             delegate: SliverChildListDelegate([
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(common_gap),
+                    child: RoundedAvatar(
+                      size: 800,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: common_gap),
+                      child: Table(
+                        children: [
+                          TableRow(children: [
+                            _tableValueText('12134'),
+                            _tableValueText('324532'),
+                            _tableValueText('2185'),
+                          ]),
+                          TableRow(children: [
+                            _tableLabelText('Post'),
+                            _tableLabelText('Followers'),
+                            _tableLabelText('Following'),
+                          ]),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
               _username(),
               _userbio(),
               _editProfileBtn(),
@@ -36,6 +66,20 @@ class _ProfileBodyState extends State<ProfileBody> {
         ],
       ),
     );
+  }
+
+  Text _tableLabelText(String label) {
+    return Text(
+      label,
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w300),
+    );
+  }
+
+  Text _tableValueText(String text) {
+    return Text(text,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontWeight: FontWeight.bold));
   }
 
   SliverToBoxAdapter _imagesPager() {
@@ -97,11 +141,7 @@ class _ProfileBodyState extends State<ProfileBody> {
         Expanded(
           child: IconButton(
             onPressed: () {
-              setState(() {
-                _selectedTab = SelectedTab.left;
-                _leftImagesPageMargin = 0;
-                print('grid btn');
-              });
+              _tabClicked(SelectedTab.left);
             },
             icon: ImageIcon(
               const AssetImage('assets/images/grid.png'),
@@ -114,11 +154,7 @@ class _ProfileBodyState extends State<ProfileBody> {
         Expanded(
           child: IconButton(
             onPressed: () {
-              setState(() {
-                _selectedTab = SelectedTab.right;
-                _leftImagesPageMargin = -screenSize!.width;
-                print('saved btn');
-              });
+              _tabClicked(SelectedTab.right);
             },
             icon: ImageIcon(
               const AssetImage('assets/images/saved.png'),
@@ -130,6 +166,23 @@ class _ProfileBodyState extends State<ProfileBody> {
         ),
       ],
     );
+  }
+
+  _tabClicked(SelectedTab selectedTab) {
+    setState(() {
+      switch (selectedTab) {
+        case SelectedTab.left:
+          _selectedTab = SelectedTab.left;
+          _leftImagesPageMargin = 0;
+          print('>>> left button clicked');
+          break;
+        case SelectedTab.right:
+          _selectedTab = SelectedTab.right;
+          _leftImagesPageMargin = -screenSize!.width;
+          print('>>> right button clicked');
+          break;
+      }
+    });
   }
 }
 
