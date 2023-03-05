@@ -7,8 +7,10 @@ import 'package:insta/widgets/rounded_avatar.dart';
 enum SelectedTab { left, right }
 
 class ProfileBody extends StatefulWidget {
+  final Function onMenuChanged;
   const ProfileBody({
     super.key,
+    required this.onMenuChanged,
   });
 
   @override
@@ -21,50 +23,84 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Row(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(common_gap),
-                    child: RoundedAvatar(
-                      size: 800,
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: common_gap),
-                      child: Table(
-                        children: [
-                          TableRow(children: [
-                            _tableValueText('12134'),
-                            _tableValueText('324532'),
-                            _tableValueText('2185'),
-                          ]),
-                          TableRow(children: [
-                            _tableLabelText('Post'),
-                            _tableLabelText('Followers'),
-                            _tableLabelText('Following'),
-                          ]),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              _username(),
-              _userbio(),
-              _editProfileBtn(),
-              _tabButtons(),
-              _selectedIndicator()
-            ]),
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _appbar(),
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    _activityDetail(),
+                    _username(),
+                    _userbio(),
+                    _editProfileBtn(),
+                    _tabButtons(),
+                    _selectedIndicator()
+                  ]),
+                ),
+                _imagesPager()
+              ],
+            ),
           ),
-          _imagesPager()
         ],
       ),
+    );
+  }
+
+  Row _appbar() {
+    return Row(
+      children: [
+        const SizedBox(
+          width: 44,
+        ),
+        const Expanded(
+            child: Text(
+          'The Young\'s best app',
+          textAlign: TextAlign.center,
+        )),
+        IconButton(
+          onPressed: () {
+            widget.onMenuChanged();
+            print('profile');
+          },
+          icon: const Icon(Icons.menu),
+        ),
+      ],
+    );
+  }
+
+  Row _activityDetail() {
+    return Row(
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(common_gap),
+          child: RoundedAvatar(
+            size: 800,
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(right: common_gap),
+            child: Table(
+              children: [
+                TableRow(children: [
+                  _tableValueText('12134'),
+                  _tableValueText('324532'),
+                  _tableValueText('2185'),
+                ]),
+                TableRow(children: [
+                  _tableLabelText('Post'),
+                  _tableLabelText('Followers'),
+                  _tableLabelText('Following'),
+                ]),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 
