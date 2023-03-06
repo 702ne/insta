@@ -4,6 +4,8 @@ import 'package:insta/const/common_size.dart';
 import 'package:insta/const/screen_size.dart';
 import 'package:insta/widgets/rounded_avatar.dart';
 
+import '../screens/profile_screen.dart';
+
 enum SelectedTab { left, right }
 
 class ProfileBody extends StatefulWidget {
@@ -17,9 +19,24 @@ class ProfileBody extends StatefulWidget {
   State<ProfileBody> createState() => _ProfileBodyState();
 }
 
-class _ProfileBodyState extends State<ProfileBody> {
+class _ProfileBodyState extends State<ProfileBody>
+    with SingleTickerProviderStateMixin {
   SelectedTab _selectedTab = SelectedTab.left;
   double _leftImagesPageMargin = 0;
+  late AnimationController _iconAnimationController;
+
+  @override
+  void initState() {
+    _iconAnimationController =
+        AnimationController(vsync: this, duration: duration);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _iconAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +81,13 @@ class _ProfileBodyState extends State<ProfileBody> {
         IconButton(
           onPressed: () {
             widget.onMenuChanged();
-            print('profile');
+            _iconAnimationController.status == AnimationStatus.completed
+                ? _iconAnimationController.reverse()
+                : _iconAnimationController.forward();
           },
-          icon: const Icon(Icons.menu),
+          icon: AnimatedIcon(
+              icon: AnimatedIcons.menu_close,
+              progress: _iconAnimationController),
         ),
       ],
     );
@@ -123,13 +144,13 @@ class _ProfileBodyState extends State<ProfileBody> {
       child: Stack(
         children: [
           AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
+            duration: duration,
             transform: Matrix4.translationValues(_leftImagesPageMargin, 0, 0),
             curve: Curves.fastOutSlowIn,
             child: imagesGrid(),
           ),
           AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
+            duration: duration,
             transform: Matrix4.translationValues(
                 _leftImagesPageMargin + screenSize!.width, 0, 0),
             curve: Curves.fastOutSlowIn,
@@ -157,7 +178,7 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   AnimatedContainer _selectedIndicator() {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: duration,
       curve: Curves.easeInOut,
       alignment: _selectedTab == SelectedTab.left
           ? Alignment.centerLeft

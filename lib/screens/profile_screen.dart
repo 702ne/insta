@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:insta/const/screen_size.dart';
 import 'package:insta/widgets/profile_body.dart';
+import 'package:insta/widgets/profile_side_menu.dart';
 
 enum MenuStatus { opened, closed }
+
+const duration = Duration(milliseconds: 300);
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,12 +15,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final aniDuration = const Duration(milliseconds: 300);
-
   MenuStatus _menuStatus = MenuStatus.closed;
   double bodyXPos = 0;
   double menuXPos = screenSize!.width;
-  double menuWidth = screenSize!.width / 2;
+  double menuWidth = screenSize!.width / 3 * 2;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         children: [
           AnimatedContainer(
-            duration: aniDuration,
+            duration: duration,
+            curve: Curves.fastOutSlowIn,
             transform: Matrix4.translationValues(bodyXPos, 0, 0),
             child: ProfileBody(onMenuChanged: () {
               setState(() {
@@ -47,16 +49,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             }),
           ),
           AnimatedContainer(
-            duration: aniDuration,
+            duration: duration,
+            curve: Curves.fastOutSlowIn,
             transform: Matrix4.translationValues(menuXPos, 0, 0),
-            child: Positioned(
-              top: 0,
-              bottom: 0,
-              width: menuWidth,
-              child: Container(
-                color: Colors.amberAccent,
-              ),
-            ),
+            child: ProfileSideMenu(menuWidth),
           )
         ],
       ),
