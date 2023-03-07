@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insta/const/material_white.dart';
-
-import 'homepage.dart';
+import 'package:insta/screens/auth_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomePage(),
+      home: const AuthScreen(), //HomePage(),
       theme: ThemeData(primarySwatch: white),
     );
   }

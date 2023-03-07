@@ -4,8 +4,6 @@ import 'package:insta/const/common_size.dart';
 import 'package:insta/const/screen_size.dart';
 import 'package:insta/widgets/rounded_avatar.dart';
 
-import '../screens/profile_screen.dart';
-
 enum SelectedTab { left, right }
 
 class ProfileBody extends StatefulWidget {
@@ -28,7 +26,7 @@ class _ProfileBodyState extends State<ProfileBody>
   @override
   void initState() {
     _iconAnimationController =
-        AnimationController(vsync: this, duration: duration);
+        AnimationController(vsync: this, duration: trans_duration);
     super.initState();
   }
 
@@ -144,13 +142,13 @@ class _ProfileBodyState extends State<ProfileBody>
       child: Stack(
         children: [
           AnimatedContainer(
-            duration: duration,
+            duration: trans_duration,
             transform: Matrix4.translationValues(_leftImagesPageMargin, 0, 0),
             curve: Curves.fastOutSlowIn,
             child: imagesGrid(),
           ),
           AnimatedContainer(
-            duration: duration,
+            duration: trans_duration,
             transform: Matrix4.translationValues(
                 _leftImagesPageMargin + screenSize!.width, 0, 0),
             curve: Curves.fastOutSlowIn,
@@ -178,7 +176,7 @@ class _ProfileBodyState extends State<ProfileBody>
 
   AnimatedContainer _selectedIndicator() {
     return AnimatedContainer(
-      duration: duration,
+      duration: trans_duration,
       curve: Curves.easeInOut,
       alignment: _selectedTab == SelectedTab.left
           ? Alignment.centerLeft

@@ -5,8 +5,6 @@ import 'package:insta/widgets/profile_side_menu.dart';
 
 enum MenuStatus { opened, closed }
 
-const duration = Duration(milliseconds: 300);
-
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
