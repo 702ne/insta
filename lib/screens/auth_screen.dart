@@ -17,20 +17,37 @@ class _AuthScreenState extends State<AuthScreen> {
         child: Stack(
           children: [
             FadeStackTrans(selectedForm: selectedForm),
-            Container(
-              child: TextButton(
-                onPressed: () {
-                  setState(() {
-                    if (selectedForm == 0) {
-                      selectedForm = 1;
-                    } else {
-                      selectedForm = 0;
-                    }
-                  });
-                },
-                child: const Text(
-                  'go to Sign up',
-                  style: TextStyle(color: Colors.black87),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                color: Colors.white,
+                child: TextButton(
+                  onPressed: () {
+                    setState(() {
+                      if (selectedForm == 0) {
+                        selectedForm = 1;
+                      } else {
+                        selectedForm = 0;
+                      }
+                    });
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      text: (selectedForm == 1)
+                          ? "Already have an account? "
+                          : "Don't have an account",
+                      style: const TextStyle(color: Colors.black54),
+                      children: [
+                        TextSpan(
+                            text: (selectedForm == 1) ? "Sign In " : "Sign Up",
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
