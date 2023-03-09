@@ -25,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         children: [
           AnimatedContainer(
-            duration: duration,
+            duration: trans_duration,
             curve: Curves.fastOutSlowIn,
             transform: Matrix4.translationValues(bodyXPos, 0, 0),
             child: ProfileBody(onMenuChanged: () {
@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             }),
           ),
           AnimatedContainer(
-            duration: duration,
+            duration: trans_duration,
             curve: Curves.fastOutSlowIn,
             transform: Matrix4.translationValues(menuXPos, 0, 0),
             child: ProfileSideMenu(menuWidth),

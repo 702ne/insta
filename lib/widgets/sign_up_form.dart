@@ -10,26 +10,78 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _cPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _cPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Form(
-        key: _formKey,
-        child: ListView(
-          children: [
-            const SizedBox(height: common_l_gap),
-            Image.asset('assets/images/insta_text_logo.png'),
-            TextFormField(
-              decoration: InputDecoration(
-                  hintText: "Email",
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey[300]!),
-                      borderRadius: BorderRadius.circular(common_s_gap)),
-                  filled: true,
-                  fillColor: Colors.grey[100]),
-            ),
-            TextFormField(),
-            TextFormField(),
-          ],
-        ));
+    return Padding(
+      padding: const EdgeInsets.all(common_gap),
+      child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              const SizedBox(height: common_l_gap),
+              Image.asset('assets/images/insta_text_logo.png'),
+              TextFormField(
+                controller: _emailController,
+                decoration: _textInputDecor('Email'),
+                validator: (text) {
+                  if (text!.isNotEmpty && text.contains("@")) {
+                    return null;
+                  } else {
+                    'Please enter your email correctly';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: common_s_gap),
+              TextFormField(
+                controller: _passwordController,
+                decoration: _textInputDecor('Password'),
+                validator: (text) {
+                  if (text!.isNotEmpty && text.length > 5) {
+                    return null;
+                  } else {
+                    'Please enter your password correctly';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: common_s_gap),
+              TextFormField(
+                controller: _passwordController,
+                decoration: _textInputDecor('Confirm Password'),
+                validator: (text) {
+                  if (text!.isNotEmpty && text == _passwordController.text) {
+                    return null;
+                  } else {
+                    'Please check your password correctly';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          )),
+    );
+  }
+
+  InputDecoration _textInputDecor(String text) {
+    return InputDecoration(
+        hintText: text,
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]!),
+            borderRadius: BorderRadius.circular(common_s_gap)),
+        filled: true,
+        fillColor: Colors.grey[100]);
   }
 }
