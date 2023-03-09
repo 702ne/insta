@@ -15,7 +15,7 @@ class FadeStackTrans extends StatefulWidget {
 
 class _FadeStackTransState extends State<FadeStackTrans>
     with SingleTickerProviderStateMixin {
-  List<Widget> forms = [const SignUpForm(), const SignInForm()];
+  List<Widget> forms = [const SignInForm(), const SignUpForm()];
   AnimationController? _animationController;
 
   @override
