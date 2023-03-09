@@ -33,41 +33,68 @@ class _SignUpFormState extends State<SignUpForm> {
               const SizedBox(height: common_l_gap),
               Image.asset('assets/images/insta_text_logo.png'),
               TextFormField(
+                cursorColor: Colors.black54,
                 controller: _emailController,
                 decoration: _textInputDecor('Email'),
                 validator: (text) {
                   if (text!.isNotEmpty && text.contains("@")) {
                     return null;
                   } else {
-                    'Please enter your email correctly';
+                    return 'Please enter your email correctly';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: common_s_gap),
               TextFormField(
+                cursorColor: Colors.black54,
                 controller: _passwordController,
                 decoration: _textInputDecor('Password'),
+                obscureText: true,
                 validator: (text) {
                   if (text!.isNotEmpty && text.length > 5) {
                     return null;
                   } else {
-                    'Please enter your password correctly';
+                    return 'Please enter your password correctly';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: common_s_gap),
               TextFormField(
-                controller: _passwordController,
+                cursorColor: Colors.black54,
+                controller: _cPasswordController,
                 decoration: _textInputDecor('Confirm Password'),
+                obscureText: true,
                 validator: (text) {
                   if (text!.isNotEmpty && text == _passwordController.text) {
                     return null;
                   } else {
-                    'Please check your password correctly';
+                    return 'Please check your password correctly';
                   }
                   return null;
+                },
+              ),
+              const SizedBox(
+                height: common_gap,
+              ),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.all(20),
+                  backgroundColor: Colors.blue[400],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  side: const BorderSide(width: 2, color: Colors.grey),
+                ),
+                child: const Text(
+                  'Join',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    print('Validation success!!!');
+                  }
                 },
               ),
             ],
@@ -80,6 +107,9 @@ class _SignUpFormState extends State<SignUpForm> {
         hintText: text,
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[300]!),
+            borderRadius: BorderRadius.circular(common_s_gap)),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red[300]!),
             borderRadius: BorderRadius.circular(common_s_gap)),
         filled: true,
         fillColor: Colors.grey[100]);
