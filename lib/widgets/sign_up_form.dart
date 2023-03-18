@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:insta/const/common_size.dart';
 import 'package:insta/homepage.dart';
 
+import '../const/auth_input_decor.dart';
+import 'or_divider.dart';
+
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
 
@@ -38,7 +41,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 TextFormField(
                   cursorColor: Colors.black54,
                   controller: _emailController,
-                  decoration: _textInputDecor('Email'),
+                  decoration: textInputDecor('Email'),
                   validator: (text) {
                     if (text!.isNotEmpty && text.contains("@")) {
                       return null;
@@ -52,7 +55,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 TextFormField(
                   cursorColor: Colors.black54,
                   controller: _passwordController,
-                  decoration: _textInputDecor('Password'),
+                  decoration: textInputDecor('Password'),
                   obscureText: true,
                   validator: (text) {
                     if (text!.isNotEmpty && text.length > 5) {
@@ -67,7 +70,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 TextFormField(
                   cursorColor: Colors.black54,
                   controller: _cPasswordController,
-                  decoration: _textInputDecor('Confirm Password'),
+                  decoration: textInputDecor('Confirm Password'),
                   obscureText: true,
                   validator: (text) {
                     if (text!.isNotEmpty && text == _passwordController.text) {
@@ -102,32 +105,23 @@ class _SignUpFormState extends State<SignUpForm> {
                     }
                   },
                 ),
+                const SizedBox(
+                  height: common_s_gap,
+                ),
+                const OrDivider(),
+                TextButton.icon(
+                    onPressed: () {},
+                    icon: const ImageIcon(
+                      AssetImage('assets/images/facebook.png'),
+                      color: Colors.blue,
+                    ),
+                    label: const Text(
+                      "Login with Facebook",
+                      style: TextStyle(color: Colors.blue),
+                    )),
               ],
             )),
       ),
     );
-  }
-
-  InputDecoration _textInputDecor(String text) {
-    return InputDecoration(
-        hintText: text,
-        enabledBorder: _activeInputBorder(),
-        focusedBorder: _activeInputBorder(),
-        errorBorder: _errorInputBorder(),
-        focusedErrorBorder: _errorInputBorder(),
-        filled: true,
-        fillColor: Colors.grey[100]);
-  }
-
-  OutlineInputBorder _errorInputBorder() {
-    return OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.red[300]!),
-        borderRadius: BorderRadius.circular(common_s_gap));
-  }
-
-  OutlineInputBorder _activeInputBorder() {
-    return OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(common_s_gap));
   }
 }
