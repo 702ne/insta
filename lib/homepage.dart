@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insta/const/screen_size.dart';
+import 'package:insta/screens/camera_screen.dart';
 import 'package:insta/screens/profile_screen.dart';
 
 import 'screens/feed_screen.dart';
@@ -39,12 +40,6 @@ class _HomePageState extends State<HomePage> {
     const ProfileScreen(),
   ];
 
-  void _onBtnItemClick(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     screenSize ??= MediaQuery.of(context).size;
@@ -63,5 +58,25 @@ class _HomePageState extends State<HomePage> {
           index: _selectedIndex,
           children: _screens,
         ));
+  }
+
+  void _openCamera() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const CameraScreen()));
+  }
+
+  void _onBtnItemClick(int index) {
+    switch (index) {
+      case 2:
+        _openCamera();
+        break;
+      default:
+        {
+          print(index);
+          setState(() {
+            _selectedIndex = index;
+          });
+        }
+    }
   }
 }

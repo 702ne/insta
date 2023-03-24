@@ -62,11 +62,13 @@ class _SignInFormState extends State<SignInForm> {
                     }
                   },
                 ),
-                TextButton(
-                    onPressed: () {},
-                    child: const Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {
+                        print('btn Forgotten password pressed');
+                      },
+                      child: const Text(
                         "Forgotten Password",
                         style: TextStyle(color: Colors.blue),
                       ),
