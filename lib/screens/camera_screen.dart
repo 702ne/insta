@@ -8,17 +8,21 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-  int _currentIndex = 0;
-  final PageController _pageController = PageController();
+  int _currentIndex = 1;
+  String _title = 'Photo';
+  final PageController _pageController = PageController(initialPage: 1);
   @override
   void dispose() {
-    _pageController.dispose(); // TODO: implement dispose
+    _pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(_title),
+      ),
       body: PageView(
         controller: _pageController,
         children: [
@@ -35,6 +39,19 @@ class _CameraScreenState extends State<CameraScreen> {
         onPageChanged: (index) {
           setState(() {
             _currentIndex = index;
+            switch (index) {
+              case 0:
+                _title = 'Gallery';
+                break;
+              case 1:
+                _title = 'Photo';
+                break;
+              case 2:
+                _title = 'Video';
+                break;
+              default:
+                break;
+            }
           });
         },
       ),
