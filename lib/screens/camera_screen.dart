@@ -13,6 +13,19 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: PageView(
+        children: [
+          Container(
+            color: Colors.cyanAccent,
+          ),
+          Container(
+            color: Colors.amberAccent,
+          ),
+          Container(
+            color: Colors.greenAccent,
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 0,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
@@ -27,12 +40,14 @@ class _CameraScreenState extends State<CameraScreen> {
               icon: Icon(Icons.radio_button_checked), label: 'Video'),
         ],
         currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+        onTap: _onItemTabbed,
       ),
     );
+  }
+
+  void _onItemTabbed(int index) {
+    return setState(() {
+      _currentIndex = index;
+    });
   }
 }
