@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/take_photo.dart';
+
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
 
@@ -29,9 +31,7 @@ class _CameraScreenState extends State<CameraScreen> {
           Container(
             color: Colors.cyanAccent,
           ),
-          Container(
-            color: Colors.amberAccent,
-          ),
+          const TakePhoto(),
           Container(
             color: Colors.greenAccent,
           ),
