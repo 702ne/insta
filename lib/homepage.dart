@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:insta/const/screen_size.dart';
 import 'package:insta/screens/camera_screen.dart';
 import 'package:insta/screens/profile_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'screens/feed_screen.dart';
 
@@ -16,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  final GlobalKey<ScaffoldMessengerState> _key =
+      GlobalKey<ScaffoldMessengerState>();
 
   final List<BottomNavigationBarItem> btmNavItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -45,6 +48,7 @@ class _HomePageState extends State<HomePage> {
     screenSize ??= MediaQuery.of(context).size;
 
     return Scaffold(
+        key: _key,
         bottomNavigationBar: BottomNavigationBar(
           items: btmNavItems,
           showSelectedLabels: true,
@@ -60,9 +64,24 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
-  void _openCamera() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const CameraScreen()));
+  void _openCamera() async {
+    if (await checkIfPermissionGranted(context)) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const CameraScreen()));
+    } else {
+      SnackBar snackbar = SnackBar(
+        content: const Text('사진, 파일, 마이크 접근을 허용해 주셔야 카메라 사용이 가능합니다'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            //_key.currentState?.hideCurrentSnackBar();
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      //_key.currentState?.showSnackBar(snackbar);
+    }
   }
 
   void _onBtnItemClick(int index) {
@@ -78,5 +97,17 @@ class _HomePageState extends State<HomePage> {
           });
         }
     }
+  }
+
+  Future<bool> checkIfPermissionGranted(BuildContext context) async {
+    Map<Permission, PermissionStatus> status =
+        await [Permission.camera, Permission.microphone].request();
+    bool permitted = true;
+
+    status.forEach((permission, permissionStatus) {
+      if (!permissionStatus.isGranted) permitted = false;
+    });
+
+    return permitted;
   }
 }
