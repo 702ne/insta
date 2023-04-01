@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:insta/const/screen_size.dart';
 import 'package:insta/screens/camera_screen.dart';
@@ -75,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           label: 'OK',
           onPressed: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            //_key.currentState?.hideCurrentSnackBar();
+            AppSettings.openLocationSettings();
           },
         ),
       );

@@ -38,6 +38,7 @@ dependencies:
   cached_network_image: ^3.2.3
   camera: ^0.10.3+2
   permission_handler: ^10.2.0
+  app_settings: 4.2.0
 
 dev_dependencies:
   flutter_test:
