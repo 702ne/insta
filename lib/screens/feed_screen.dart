@@ -8,20 +8,20 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CupertinoNavigationBar(
-        leading: const IconButton(
+      appBar: const CupertinoNavigationBar(
+        leading: IconButton(
             onPressed: null,
             icon: Icon(
               CupertinoIcons.camera,
               color: Colors.black87,
             )),
-        middle: const Text(
+        middle: Text(
           "Instagram",
           style: TextStyle(fontFamily: "VeganStyle", color: Colors.black87),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             IconButton(
                 onPressed: null,
                 icon: ImageIcon(

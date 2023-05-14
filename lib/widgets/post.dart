@@ -54,8 +54,8 @@ class Post extends StatelessWidget {
   }
 
   Row _postActions() {
-    return Row(
-      children: const [
+    return const Row(
+      children: [
         IconButton(
           onPressed: null,
           icon: ImageIcon(AssetImage('assets/images/bookmark.png')),
@@ -82,8 +82,8 @@ class Post extends StatelessWidget {
   }
 
   Widget _postHeader() {
-    return Row(
-      children: const [
+    return const Row(
+      children: [
         Padding(
           padding: EdgeInsets.all(common_xxx_gap),
           child: RoundedAvatar(),
